@@ -15,22 +15,22 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/action_bar">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
     </FrameLayout>
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/action_bar"
+        android:id="@+id/toolbar"
         android:layout_width="0dp"
-        android:layout_height="53dp"
+        android:layout_height="48dp"
         android:background="@color/colorPrimary"
         android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        android:theme="@style/AppTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/AlertDialog.AppCompat.Light" />
+        app:popupTheme="@style/AppTheme" />
 
 
 </android.support.constraint.ConstraintLayout>

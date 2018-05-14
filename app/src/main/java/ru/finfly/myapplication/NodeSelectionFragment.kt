@@ -11,17 +11,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
+import kotlinx.android.synthetic.main.category_view_holder.view.*
 import org.json.JSONArray
 import org.json.JSONObject
 
-//
+
 class NodeSelectionFragment:Fragment()
 {
 
@@ -29,7 +28,9 @@ class NodeSelectionFragment:Fragment()
     {
         fun onExpandNode(key: String, name: String)
 
-        fun onSelectNode(key: String, name: String)
+        fun onSelectNode(key: String, name: String, select: Boolean)
+
+        fun onCheckSelection(key: String): Boolean
     }
 
     lateinit var onNodeActionListener: OnNodeActionListener;
@@ -39,13 +40,21 @@ class NodeSelectionFragment:Fragment()
         private val nameView = view.findViewById<TextView>(R.id.textView)
         private val keyView = view.findViewById<TextView>(R.id.keyView)
         private val expandButton = view.findViewById<ImageButton>(R.id.expand_item)
+        private val selectButton = view.findViewById<CheckBox>(R.id.select_item)
 
         init
         {
-            itemView.findViewById<ImageButton>(R.id.expand_item).setOnClickListener {
+            expandButton.setOnClickListener {
                 onNodeActionListener.onExpandNode(
                         keyView.text as String,
                         nameView.text as String
+                )
+            }
+            selectButton.setOnClickListener{
+                onNodeActionListener.onSelectNode(
+                        keyView.text as String,
+                        nameView.text as String,
+                        selectButton.isChecked
                 )
             }
         }
@@ -58,6 +67,8 @@ class NodeSelectionFragment:Fragment()
                                             ImageButton.VISIBLE
                                         else
                                             ImageButton.INVISIBLE
+            selectButton.isChecked = onNodeActionListener.onCheckSelection(keyView.text as String)
+
         }
     }
 

@@ -13,7 +13,8 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
             android:name=".MainActivity"
-            android:label="Мое приложение">
+            android:label="Мое приложение"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,7 +27,7 @@
         <activity
             android:name=".SendHtmlRequest"
             android:label="@string/title_activity_send_html_request"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH"/>
             </intent-filter>
@@ -35,10 +36,12 @@
         </activity>
         <activity android:name=".ChooseCategoryActivity"
             android:label="Категория"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".SendHtmlRequest"/>
         <activity android:name=".ChooseGroupActivity"
             android:label="Группа"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".SendHtmlRequest"/>
     </application>
 
 </manifest>

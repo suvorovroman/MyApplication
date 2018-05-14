@@ -1,33 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <FrameLayout
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:layout_width="13dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="233dp"
+            android:layout_marginEnd="8dp"
             android:elevation="4dp"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:popupTheme="@style/Theme.AppCompat.Light" />
+            android:theme="@style/AppTheme"
+            app:layout_constraintBottom_toTopOf="@+id/editText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:popupTheme="@style/AppTheme" />
 
         <EditText
             android:id="@+id/editText"
-            android:layout_width="344dp"
-            android:layout_height="487dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
             android:ems="10"
             android:inputType="textMultiLine"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -35,7 +37,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
-    </FrameLayout>
+    </android.support.constraint.ConstraintLayout>
 
     <android.support.design.widget.NavigationView
         android:layout_height="match_parent"
@@ -43,7 +45,8 @@
         android:id="@+id/navigation_view"
         android:fitsSystemWindows="true"
         android:layout_gravity="start"
-        app:menu="@menu/drawer_view"/>
+        app:menu="@menu/drawer_view"
+        android:theme="@style/AppTheme"/>
 
 
 </android.support.v4.widget.DrawerLayout>
