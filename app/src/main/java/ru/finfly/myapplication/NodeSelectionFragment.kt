@@ -72,7 +72,7 @@ class NodeSelectionFragment:Fragment()
         }
     }
 
-    var data: JSONArray = JSONArray()
+    var data = JSONArray()
 
     inner class Adapter:RecyclerView.Adapter<RecyclerView.ViewHolder>()
     {
@@ -117,14 +117,13 @@ class NodeSelectionFragment:Fragment()
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val view =  inflater.inflate(R.layout.hierarchy_level, container, false).apply {
+        return  inflater.inflate(R.layout.hierarchy_level, container, false).apply {
             recyclerView = findViewById<RecyclerView>(R.id.recyclerView).apply {
                 layoutManager = LinearLayoutManager(context)
                 adapter = Adapter()
             }
             progressBar = findViewById<ProgressBar>(R.id.progressBar)
         }
-        return view
     }
 
     override fun onStart() {
