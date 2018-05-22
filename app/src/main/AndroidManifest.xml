@@ -7,7 +7,6 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="Мое приложение"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
@@ -16,9 +15,8 @@
             android:label="Мое приложение"
             android:theme="@style/AppTheme">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
@@ -26,22 +24,24 @@
             android:label="@string/title_activity_settings" />
         <activity
             android:name=".SendHtmlRequest"
-            android:label="@string/title_activity_send_html_request"
-            android:theme="@style/AppTheme">
+            android:label="Запасы"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".MainActivity">
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH"/>
             </intent-filter>
-            <meta-data android:name="android.app.searchable"
-                android:resource="@xml/searchable"/>
+
         </activity>
         <activity android:name=".ChooseCategoryActivity"
             android:label="Категория"
             android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".SendHtmlRequest"/>
+            android:parentActivityName=".MainActivity"/>
         <activity android:name=".ChooseGroupActivity"
             android:label="Группа"
             android:theme="@style/AppTheme"
-            android:parentActivityName=".SendHtmlRequest"/>
+            android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>

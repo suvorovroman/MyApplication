@@ -13,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.*
+import android.widget.ProgressBar
 import android.widget.SearchView
 import com.android.volley.Request
 import com.android.volley.Response
@@ -30,20 +31,7 @@ class SendHtmlRequest : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_send_html_request)
         setSupportActionBar(findViewById(R.id.toolbar))
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp)
-        
-        findViewById<NavigationView>(R.id.navigation_view).setNavigationItemSelectedListener(
-                NavigationView.OnNavigationItemSelectedListener { item ->
-                    when(item.itemId) {
-                        R.id.choose_category -> onChooseCategory()
-                        R.id.choose_group -> onChooseGroup()
-                        else -> return@OnNavigationItemSelectedListener false
-                    }
-                }
-        )
-
         findViewById<RecyclerView>(R.id.recyclerView).apply {
             layoutManager = LinearLayoutManager(context)
             adapter = Adapter()
@@ -88,8 +76,10 @@ class SendHtmlRequest : AppCompatActivity() {
                             {
                                 data = it
                                 findViewById<RecyclerView>(R.id.recyclerView).adapter.notifyDataSetChanged()
+                                findViewById<ProgressBar>(R.id.progressBar).visibility = ProgressBar.INVISIBLE
                             },
                             Response.ErrorListener {
+                                findViewById<ProgressBar>(R.id.progressBar).visibility = ProgressBar.INVISIBLE
                                 AlertDialog.Builder(this).apply {
                                     setTitle(R.string.title_volley_error)
                                     setMessage(it.toString())
@@ -103,45 +93,8 @@ class SendHtmlRequest : AppCompatActivity() {
                         }
                 )
             )
+            findViewById<ProgressBar>(R.id.progressBar).visibility = ProgressBar.VISIBLE
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        getMenuInflater().inflate(R.menu.options_menu, menu)
-
-        var searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        var searchView = menu!!.findItem(R.id.search).getActionView() as SearchView
-
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()))
-        searchView.isSubmitButtonEnabled = true
-
-        return true;
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when(item?.itemId) {
-            android.R.id.home -> openNavigationDrawer()
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    private fun openNavigationDrawer():Boolean
-    {
-        findViewById<DrawerLayout>(R.id.drawer_layout).openDrawer(GravityCompat.START)
-        return true
-    }
-
-    private fun onChooseCategory():Boolean
-    {
-        startActivity(Intent(this, ChooseCategoryActivity::class.java))
-        findViewById<DrawerLayout>(R.id.drawer_layout).closeDrawer(GravityCompat.START)
-        return true
-    }
-
-    private fun onChooseGroup():Boolean
-    {
-        startActivity(Intent(this, ChooseGroupActivity::class.java))
-        findViewById<DrawerLayout>(R.id.drawer_layout).closeDrawer(GravityCompat.START)
-        return true
-    }
 }
