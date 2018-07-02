@@ -1,29 +1,20 @@
 package ru.finfly.myapplication
 
 import android.app.*
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.NavigationView
-import android.support.design.widget.Snackbar
-import android.support.v4.view.GravityCompat
-import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.*
 import android.widget.ProgressBar
-import android.widget.SearchView
-import com.android.volley.Request
 import com.android.volley.Response
-import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import android.widget.TextView
 import com.android.volley.toolbox.JsonArrayRequest
 
-import kotlinx.android.synthetic.main.activity_send_html_request.*
 import org.json.JSONArray
+import org.json.JSONObject
 
 class SendHtmlRequest : AppCompatActivity() {
 
@@ -43,6 +34,22 @@ class SendHtmlRequest : AppCompatActivity() {
     private inner class Adapter:RecyclerView.Adapter<RecyclerView.ViewHolder>()
     {
         inner class ViewHolder(view: View):RecyclerView.ViewHolder(view)
+        {
+            private val availableStockView = view.findViewById<TextView>(R.id.availableStock)
+            private val materialNameView = view.findViewById<TextView>(R.id.materialName)
+            private val wholeStockView = view.findViewById<TextView>(R.id.wholeStock)
+            private val reservedStockView = view.findViewById<TextView>(R.id.reservedStock)
+            private val groupNameView = view.findViewById<TextView>(R.id.groupName)
+
+            fun bind(obj: JSONObject)
+            {
+                availableStockView.text = obj.getString("available")
+                wholeStockView.text = obj.getString("whole")
+                reservedStockView.text = obj.getString("reserved")
+                materialNameView.text = obj.getJSONObject("material").getString("name")
+                groupNameView.text = obj.getJSONObject("group").getString("name")
+            }
+        }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             return ViewHolder(
@@ -55,7 +62,7 @@ class SendHtmlRequest : AppCompatActivity() {
         }
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-            holder.itemView.findViewById<TextView>(R.id.textView).text = data.optString(position, "available")
+            (holder as ViewHolder).bind(data.optJSONObject(position))
         }
 
         override fun getItemCount() = data.length()
