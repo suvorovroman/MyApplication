@@ -1,6 +1,7 @@
 package ru.finfly.myapplication
 
 import android.app.*
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -68,6 +69,20 @@ class SendHtmlRequest : AppCompatActivity() {
         override fun getItemCount() = data.length()
     }
 
+    private fun makeItemListParameter(section:String) : String
+    {
+        var s = ""
+        with(getPreferences(Context.MODE_PRIVATE)){
+            val set = getStringSet(section, setOf<String>())
+            for(key in set){
+                if(s != "")
+                    s += ","
+                s += key
+            }
+        }
+        return s
+    }
+
     override fun onStart()
     {
         super.onStart()
@@ -77,6 +92,8 @@ class SendHtmlRequest : AppCompatActivity() {
                     JsonArrayRequest(
                             com.android.volley.Request.Method.GET,
                             "http://95.165.143.36/finfly/lua.exe?stock.lua%20"+
+                                    "\"" + makeItemListParameter("group") + "\"%20" +
+                                    "\"" + makeItemListParameter("category") + "\"%20" +
                                     "\"" + intent.getStringExtra(SearchManager.QUERY) + "\"",
                             null,
                             Response.Listener<JSONArray>
