@@ -72,7 +72,7 @@ class SendHtmlRequest : AppCompatActivity() {
     private fun makeItemListParameter(section:String) : String
     {
         var s = ""
-        with(getPreferences(Context.MODE_PRIVATE)){
+        with(getSharedPreferences(EnvironmentFileName, Context.MODE_PRIVATE)){
             val set = getStringSet(section, setOf<String>())
             for(key in set){
                 if(s != "")

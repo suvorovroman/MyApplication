@@ -63,7 +63,7 @@ abstract class ChooseHierarchyItemActivity(private val section: String):
     }
 
     private fun saveSelection(){
-        getPreferences(Context.MODE_PRIVATE).edit().apply{
+        getSharedPreferences(EnvironmentFileName, Context.MODE_PRIVATE).edit().apply{
             val set = mutableSetOf<String>()
             for ((key, name) in selection) {
                 set.add(key)
@@ -75,7 +75,7 @@ abstract class ChooseHierarchyItemActivity(private val section: String):
     }
 
     private fun restoreSelection(){
-        with(getPreferences(Context.MODE_PRIVATE)){
+        with(getSharedPreferences(EnvironmentFileName, Context.MODE_PRIVATE)){
             val set = getStringSet(section, setOf<String>())
             for(key in set)
                 selection[key] = getString("$section/$key", "")
